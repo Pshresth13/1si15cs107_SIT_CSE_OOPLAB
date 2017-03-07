@@ -1,0 +1,98 @@
+//fraction with Constructor and Destructor
+#include<iostream>
+#include<cmath>
+using namespace std;
+int gcd(int,int);
+class Fractiontype
+{
+	int iNum,iDen;
+	public:
+		Fractiontype();
+		Fractiontype(int);
+		Fractiontype(int,int);
+	 	Fractiontype(Fractiontype &);
+		~Fractiontype();
+		void fnsetfraction();
+		void fnshowfraction();
+		void fnreducefraction();
+		Fractiontype fnaddfraction(Fractiontype);
+};
+Fractiontype::Fractiontype()
+{
+	cout<<"Constructor called :"<<endl;
+	iNum=1;
+	iDen=2;
+	fnshowfraction();
+}
+Fractiontype::Fractiontype(int a)
+{
+	cout<<"constructor called:"<<endl;
+	iNum=a;
+	iDen=1;
+	fnshowfraction();
+}
+Fractiontype::Fractiontype(int a,int b)
+{
+	iNum=a;
+	iDen=b;
+	cout<<"Constructor called :"<<endl;
+	fnshowfraction();
+}
+Fractiontype::Fractiontype(Fractiontype& f)
+{
+	cout<<"Copy constructor called :"<<endl;
+	iNum=f.iNum;
+	iDen=f.iDen;
+}
+Fractiontype::~Fractiontype()
+{
+	cout<<"Destructor called"<<endl;	
+}
+void Fractiontype::fnsetfraction()
+{
+	cout<<"Enter the values"<<endl;
+	cin>>iNum>>iDen;
+	fnshowfraction();
+}
+void Fractiontype::fnshowfraction()
+{
+	cout<<"Fraction :-("<<iNum<<"/"<<iDen<<")";
+}
+void Fractiontype::fnreducefraction()
+{
+	int g=gcd(iNum,iDen);
+	iNum=iNum/g;
+	iDen=iDen/g;
+	fnshowfraction();
+}
+int gcd(int m, int n)
+{
+	if(m%n==0)
+		return 0;
+	else
+		return gcd(n,m%n);
+}
+Fractiontype Fractiontype::fnaddfraction(Fractiontype f)
+{
+	Fractiontype A;
+	A.iNum=f.iNum+iNum;
+	A.iDen=A.iDen+iNum;
+	A.fnshowfraction();
+}
+int main()
+{
+	Fractiontype F1;
+	Fractiontype F2(3);
+	Fractiontype F3(8,3);
+	Fractiontype F4(F3);
+	F2.fnreducefraction();
+	Fractiontype F5;
+	F5=F3.fnaddfraction(F4);
+	F5.fnshowfraction();
+	{
+		cout<<"\nInner block\n";
+		Fractiontype F6;
+		cout<<"End of inner block\n";
+	}
+	return 0;
+}
