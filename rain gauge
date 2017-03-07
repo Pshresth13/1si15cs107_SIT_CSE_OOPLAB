@@ -1,0 +1,68 @@
+#include<iostream>
+#include<cstdlib>
+#include<ctime>
+#include<cstring>
+using namespace std;
+class RAINGAUGE
+{
+	char loc[30];
+	double fall;
+	public:
+		RAINGAUGE();
+		void read_measurement();
+		void display_reading();
+		friend double AvgRainfall(RAINGAUGE a[], int n);
+		
+};
+RAINGAUGE::RAINGAUGE()
+{
+	fall=0.0;
+	strcpy (loc,"\0");
+}
+void RAINGAUGE:: read_measurement()
+{
+	cout<<"\n Enter location:";
+	cin>>loc;
+	fall= (rand()%200)/100.0;
+}
+void RAINGAUGE:: display_reading()
+{
+	cout<<"\n Location:\t"<<loc<<"RAINFALL:\t"<<fall<<"cm"<<endl;
+}
+int main()
+{
+	RAINGAUGE RAIN[50];
+	int i,n;
+	cout<<"\n Enter the number of location:";
+	cin>>n;
+	srand(time(NULL));
+	for (i=0; i<n;i++)
+	RAIN[i].read_measurement();
+	for (i=0; i<n;i++)
+	RAIN[i].display_reading();
+	cout<<"The average Rainfall:\t"<<AvgRainfall(RAIN,n)<< endl;
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
